@@ -96,8 +96,8 @@ def inicia_jogo(n_jogadores,pecas):
     #Colocando as peças excedentes no monte
     jog_mes_mon['monte'] = pecas
 
-    #Printando com formatação
-    lista_cores = {1:2,2:1,3:3,4:4}
+    #Printando com formatação e cores
+    lista_cores = {1:2,2:1,3:7,4:4}
     for i in jog_mes_mon['jogadores']:
         pecas_jogador = jog_mes_mon['jogadores'][i]
         print('\033[1;3{};40mJOGADOR {}:\033[m \033[0;3{};40m{}\033[m'.format(lista_cores[i],i,lista_cores[i],pecas_jogador))

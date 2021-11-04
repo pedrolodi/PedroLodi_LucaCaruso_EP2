@@ -3,8 +3,8 @@ from random import *
 from Functions import *
 
 ################################## JOGO ################################## 
-jogar = input('\033[1;33;40mGOSTARIA DE JOGAR DOMINÓ (s/n)? \033[m')
-if jogar == 's':
+jogar = input('\033[1;33;40mGOSTARIA DE JOGAR DOMINÓ (S/N)? \033[m')
+if (jogar == 's') or (jogar == 'S'):
 
     #REGRAS
     print("")
@@ -32,6 +32,7 @@ if jogar == 's':
     while jogo_invalido == True:
         if n_jogadores < 2 or n_jogadores > 4:
             print('\033[1;31;40mNúmero inválido, tente novamente!\033[m')
+            print('')
             n_jogadores = int(input('\033[1;33;40mQUANTOS JOGADORES(2-4)? \033[m'))
         else:
             jogo_invalido = False
