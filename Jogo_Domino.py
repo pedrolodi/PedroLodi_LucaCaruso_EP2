@@ -37,7 +37,23 @@ if (jogar == 's') or (jogar == 'S'):
         else:
             jogo_invalido = False
 
-    inicio_jogo = inicia_jogo(n_jogadores, pecas)
+    jogo = inicia_jogo(n_jogadores, pecas)
+    jogador_da_vez = randint(0, (n_jogadores -1))
+    
+    ganhador = 'nenhum'
+    while ganhador == 'nenhum':
+        mesa = jogo['mesa']
+        pecas = jogo['jogadores'][jogador_da_vez]
+        for jogador in jogo['jogadores']:
+            if jogador == []:
+                ganhador = jogador
+        possibilidades = posicoes_possiveis(mesa, pecas)
+        mesa = adiciona_na_mesa(possibilidades[randint(0, len(possibilidades) - 1)], mesa)
+
+        
+        
+        
+            
 
 
 
