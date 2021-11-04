@@ -97,13 +97,14 @@ def inicia_jogo(n_jogadores,pecas):
     jog_mes_mon['monte'] = pecas
 
     #Printando com formatação
+    lista_cores = {1:2,2:1,3:3,4:4}
     for i in jog_mes_mon['jogadores']:
         pecas_jogador = jog_mes_mon['jogadores'][i]
-        print('JOGADOR {}: {}'.format(i,pecas_jogador))
+        print('\033[1;3{};40mJOGADOR {}:\033[m \033[0;3{};40m{}\033[m'.format(lista_cores[i],i,lista_cores[i],pecas_jogador))
     print("")
-    print('MONTE: {}'.format(jog_mes_mon['monte']))
+    print('\033[1;35;40mMONTE:\033[m \033[0;35;40m{}\033[m'.format(jog_mes_mon['monte']))
     print("")
-    print('MESA: {}'.format(jog_mes_mon['mesa']))
+    print('\033[1;36;40mMESA:\033 \033[0;36;40m{}\033[m'.format(jog_mes_mon['mesa']))
 
     return jog_mes_mon
 
