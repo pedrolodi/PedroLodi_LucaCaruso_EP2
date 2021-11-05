@@ -40,17 +40,29 @@ if (jogar == 's') or (jogar == 'S'):
     jogo = inicia_jogo(n_jogadores, pecas)
     jogador_da_vez = randint(0, (n_jogadores -1))
     
-    ganhador = 'nenhum'
-    while ganhador == 'nenhum':
-        mesa = jogo['mesa']
-        pecas = jogo['jogadores'][jogador_da_vez]
+    ganhador = 0
+    continuar = 1
+    while continuar == 1:
         for jogador in jogo['jogadores']:
             if jogador == []:
                 ganhador = jogador
-        possibilidades = posicoes_possiveis(mesa, pecas)
-        mesa = adiciona_na_mesa(possibilidades[randint(0, len(possibilidades) - 1)], mesa)
+                continuar = 0
+        if posicoes_possiveis != []:
+            print('')
+            print('JOGADOR 1:{}'.format(jogo['jogadores'][1]))
+            print('POSIÇÕES POSSÍVEIS: {}'.format(posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1])))
+            jogada = int(input('QUAL PEÇA VOCÊ QUER JOGAR? '))
+            print('MESA: {}'.format(jogo['mesa']))
+            print('')
+            adiciona_na_mesa(jogo['jogadores'][1][jogada],jogo['mesa'])
+            del(jogo['jogadores'][1][jogada])
+            print(jogo['jogadores'][1])
+            print('')
+            print('MESA: {}'.format(jogo['mesa']))
+        else:
+            jogo['jogadores'][1].append(jogo['monte'][0])
+            del(jogo['monte'][0])
 
-        
         
         
             
