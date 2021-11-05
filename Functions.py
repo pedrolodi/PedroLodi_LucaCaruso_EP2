@@ -100,6 +100,7 @@ def inicia_jogo(n_jogadores,pecas):
     pecas_jogador = jog_mes_mon['jogadores'][1]
     print('\033[1;32;40mJOGADOR 1:\033[m \033[0;32;40m{}\033[m'.format(pecas_jogador))
     print("")
+    print('================================================================================')
     print('\033[1;36;40mMESA:\033 \033[0;36;40m{}\033[m'.format(jog_mes_mon['mesa']))
 
     return jog_mes_mon
