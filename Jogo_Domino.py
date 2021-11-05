@@ -49,16 +49,17 @@ if (jogar == 's') or (jogar == 'S'):
                 continuar = 0
         if posicoes_possiveis != []:
             print('')
-            print('JOGADOR 1:{}'.format(jogo['jogadores'][1]))
-            print('POSIÇÕES POSSÍVEIS: {}'.format(posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1])))
-            jogada = int(input('QUAL PEÇA VOCÊ QUER JOGAR? '))
-            print('MESA: {}'.format(jogo['mesa']))
+            print('\033[1;32;40mJOGADOR 1: {}\033[m'.format(jogo['jogadores'][1]))
+            print('\033[0;33;40mPOSIÇÕES POSSÍVEIS: {}\033[m'.format(posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1])))
+            jogada = int(input('\033[1;33;40mQUAL PEÇA VOCÊ QUER JOGAR? \033[m'))
             print('')
             adiciona_na_mesa(jogo['jogadores'][1][jogada],jogo['mesa'])
             del(jogo['jogadores'][1][jogada])
             print(jogo['jogadores'][1])
             print('')
-            print('MESA: {}'.format(jogo['mesa']))
+            print('================================================================================')
+            print('\033[1;36;40mMESA: {}\033[m'.format(jogo['mesa']))
+            
         else:
             jogo['jogadores'][1].append(jogo['monte'][0])
             del(jogo['monte'][0])

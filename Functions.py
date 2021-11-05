@@ -96,13 +96,9 @@ def inicia_jogo(n_jogadores,pecas):
     #Colocando as peças excedentes no monte
     jog_mes_mon['monte'] = pecas
 
-    #Printando com formatação e cores
-    lista_cores = {1:2,2:1,3:7,4:4}
-    for i in jog_mes_mon['jogadores']:
-        pecas_jogador = jog_mes_mon['jogadores'][i]
-        print('\033[1;3{};40mJOGADOR {}:\033[m \033[0;3{};40m{}\033[m'.format(lista_cores[i],i,lista_cores[i],pecas_jogador))
-    print("")
-    print('\033[1;35;40mMONTE:\033[m \033[0;35;40m{}\033[m'.format(jog_mes_mon['monte']))
+    #Printando Mesa e Jogador com formatação
+    pecas_jogador = jog_mes_mon['jogadores'][1]
+    print('\033[1;32;40mJOGADOR 1:\033[m \033[0;32;40m{}\033[m'.format(pecas_jogador))
     print("")
     print('\033[1;36;40mMESA:\033 \033[0;36;40m{}\033[m'.format(jog_mes_mon['mesa']))
 
@@ -111,27 +107,28 @@ def inicia_jogo(n_jogadores,pecas):
 #Adicionando Peças
 def adiciona_na_mesa(peca,mesa):
     aux = []
-    final = mesa [-1][-1]
-    comeco = mesa [0][0]
     if mesa == []:
-        mesa.append(peca)
-    elif comeco in peca:
-        if comeco == peca[0]:
-            aux.append(peca[::-1])
-            mesa= aux + mesa
-        elif comeco == peca[-1]:
-            aux.append(peca)
-            mesa = aux + mesa
-    elif final in peca:
-        if peca[0] == final:
+       mesa.append(peca)
+    else:
+        final = mesa [-1][-1]
+        comeco = mesa [0][0]
+        if comeco in peca:
+            if comeco == peca[0]:
+                aux.append(peca[::-1])
+                mesa= aux + mesa
+            elif comeco == peca[-1]:
+                aux.append(peca)
+                mesa = aux + mesa
+        elif final in peca:
+            if peca[0] == final:
+                mesa.append(peca)
+            elif peca[-1] == final: 
+                mesa.append(peca[::-1])
+        elif peca[0] == peca[1] and comeco in peca:
             mesa.append(peca)
-        elif peca[-1] == final: 
-            mesa.append(peca[::-1])
-    elif peca[0] == peca[1] and comeco in peca:
-        mesa.append(peca)
 
-    aux = []
-    return mesa
+        aux = []
+        return mesa
 
 #Soma peças
 def soma_pecas(lista):
