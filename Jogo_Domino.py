@@ -1,6 +1,7 @@
 #IMPORTANDO FUNÇÕES E BIBLIOTECAS
 from random import *
 from Functions import *
+from Automatizacao import *
 
 ################################## JOGO ################################## 
 jogar = input('\033[1;33;40mGOSTARIA DE JOGAR DOMINÓ (S/N)? \033[m')
@@ -44,9 +45,10 @@ if (jogar == 's') or (jogar == 'S'):
     continuar = 1
     while continuar == 1:
         for jogador in jogo['jogadores']:
-            if jogador == []:
-                ganhador = jogador
-                continuar = 0
+            for pecas in jogo['jogadores'][jogador]:
+                if pecas == []:
+                    ganhador = jogador
+                    continuar = 0
         if posicoes_possiveis != []:
             print('')
             print('\033[1;32;40mJOGADOR 1: {}\033[m'.format(jogo['jogadores'][1]))
@@ -57,6 +59,7 @@ if (jogar == 's') or (jogar == 'S'):
             adiciona_na_mesa(jogo['jogadores'][1][jogada],jogo['mesa'])
             del(jogo['jogadores'][1][jogada])
             print('')
+            bot(jogo, n_jogadores, jogo['mesa'], jogo['jogadores'])
             print('================================================================================')
             print('\033[1;36;40mMESA: {}\033[m'.format(jogo['mesa']))
             
