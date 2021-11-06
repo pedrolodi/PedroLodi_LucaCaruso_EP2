@@ -29,7 +29,7 @@ def bot(jogo, n_jogadores, mesa, pecas):
                         print('A peça comprada não cabe na mesa! Compre outra')
 
     elif n_jogadores == 3:
-        for jogador in range(2,3):
+        for jogador in range(2,4):
             p_poss = posicoes_possiveis(mesa, pecas[jogador])
             if posicoes_possiveis(mesa, pecas[jogador]) != []:
                 jogada = random.choice(p_poss)
@@ -52,7 +52,7 @@ def bot(jogo, n_jogadores, mesa, pecas):
                         print('A peça comprada não cabe na mesa! Compre outra')
 
     elif n_jogadores == 4:
-        for jogador in range(2,4):
+        for jogador in range(2,5):
             p_poss = posicoes_possiveis(mesa, pecas[jogador])
             if posicoes_possiveis(mesa, pecas[jogador]) != []:
                 jogada = random.choice(p_poss)
