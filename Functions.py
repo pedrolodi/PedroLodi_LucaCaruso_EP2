@@ -138,3 +138,10 @@ def soma_pecas(lista):
         soma = soma + peca[0]
         soma = soma + peca[1]
     return soma
+
+#Printa peças 
+def formata_pecas(lista):
+    pecas_novas = ''
+    for peca in lista:
+        pecas_novas = pecas_novas + '[' + str(peca[0]) + '|' + str(peca[1]) + ']'
+    return pecas_novas
