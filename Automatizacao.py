@@ -17,7 +17,7 @@ def bot(jogo, n_jogadores, mesa, pecas):
             print('JOGADA DO JOGADOR 2:')
             print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
 
-        elif posicoes_possiveis(jogo['mesa'],jogo['jogadores'][2]) == []:
+        if posicoes_possiveis(jogo['mesa'],jogo['jogadores'][2]) == [] and jogo['jogadores'][2] != []:
                 peca = [9,9]
                 if len(jogo['monte'])>0:
                     while peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
@@ -51,7 +51,6 @@ def bot(jogo, n_jogadores, mesa, pecas):
                     while peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
                         jogo['jogadores'][jogador].append(jogo['monte'][0])
                         peca = jogo['monte'][0]
-                        print('\033[1;32;40mJOGADOR 1: {}\033[m'.format(formata_pecas(jogo['jogadores'][jogador])))
                         del(jogo['monte'][0])
                         if peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
                             break
@@ -72,7 +71,7 @@ def bot(jogo, n_jogadores, mesa, pecas):
                 print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
                 print('')
 
-            elif (posicoes_possiveis(jogo['mesa'],jogo['jogadores'][jogador]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][3] != [] or jogo['jogadores'][4] != []):
+            if (posicoes_possiveis(jogo['mesa'],jogo['jogadores'][jogador]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][3] != [] or jogo['jogadores'][4] != []):
                     print('JOGADA DO JOGADOR {}: '.format(jogador))
                     print('Sem peças possíveis... Pulando a vez!')
                     print('')

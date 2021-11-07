@@ -1,4 +1,5 @@
 #IMPORTANDO FUNÇÕES E BIBLIOTECAS
+from math import fabs
 from random import *
 from Functions import *
 from Automatizacao import *
@@ -7,7 +8,6 @@ from Automatizacao import *
 jogar = input('\033[1;33;40mGOSTARIA DE JOGAR DOMINÓ (S/N)? \033[m')
 
 while jogar == 's' or jogar == 'S':
-    validacao = True
     if (jogar == 's') or (jogar == 'S'):
 
         #REGRAS
@@ -47,19 +47,20 @@ while jogar == 's' or jogar == 'S':
         #LOOP ATÉ VITÓRIA OU EMPATE
         continuar = True
         while continuar == True:
-                    
-            if posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) != []:
+            if jogo['jogadores'][1] == [] or jogo['jogadores'][2] == [] or jogo['jogadores'][n_jogadores-1] == [] or jogo['jogadores'][n_jogadores] == []:
+                continuar = False     
+            if posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) != [] :
                 print('')
                 print('\033[1;32;40mJOGADOR 1: {}\033[m'.format(formata_pecas(jogo['jogadores'][1])))
                 print('\033[0;33;40mPOSIÇÕES POSSÍVEIS: {}\033[m'.format(posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1])))
                 print('')
+                print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
                 jogada = int(input('\033[1;33;40mQUAL PEÇA VOCÊ QUER JOGAR? \033[m'))
 
                 if jogada in posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]):
-                    print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
-                    print('')
                     adiciona_na_mesa(jogo['jogadores'][1][jogada],jogo['mesa'])
                     del(jogo['jogadores'][1][jogada])
+                    print('JOGADA JOGADOR 1:')
                     print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
                     print('')
                     bot(jogo, n_jogadores, jogo['mesa'], jogo['jogadores'])
@@ -75,57 +76,65 @@ while jogar == 's' or jogar == 'S':
                     print('\033[1;32;40mJOGADA DO JOGADOR 1:\033[m')
                     print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
                     print('')
-                    bot(jogo, n_jogadores, jogo['mesa'], jogo['jogadores'])
-                    print('================================================================================')
-                    print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
-            
-            elif ((posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][n_jogadores-1] != [] or jogo['jogadores'][n_jogadores] != [])) and n_jogadores != 4:
-                #COMPRANDO PEÇAS DO MONTE
-                validacao == True
-                peca = [9,9]
-                if len(jogo['monte'])>0:
-                    while peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
-                        print('\033[1;32;40mJOGADOR 1: {}\033[m'.format(formata_pecas(jogo['jogadores'][1])))
-                        comprar_peca = input('Nenhuma peça possível, compre uma peça!(ENTER) ')
-                        jogo['jogadores'][1].append(jogo['monte'][0])
-                        peca = jogo['monte'][0]
-                        del(jogo['monte'][0])
-                        if peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
-                            break
-                        else:
-                            print('A peça comprada não cabe na mesa! Compre outra')
-                elif len(jogo['monte'])==0 and n_jogadores != 4:
-                    i = 1
-                    while i<2:
-                        print('Sem peças no monte... Pulando a vez!')
-                        i=i+1
+                    if jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][n_jogadores-1] != [] or jogo['jogadores'][n_jogadores] != []:
+                        bot(jogo, n_jogadores, jogo['mesa'], jogo['jogadores'])
+                        print('================================================================================')
+                    else:
+                        ganhador = 1
+                        continuar = False
+                        
 
-            elif n_jogadores == 4 and ((posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][n_jogadores-1] != [] or jogo['jogadores'][n_jogadores] != [])):
-                print('Sem peças possíveis... Pulando a vez!')
-                      
-            
-            elif posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) == [] and posicoes_possiveis(jogo['mesa'],jogo['jogadores'][2]) == [] and posicoes_possiveis(jogo['mesa'],jogo['jogadores'][n_jogadores-1]) == [] and posicoes_possiveis(jogo['mesa'],jogo['jogadores'][n_jogadores]) == []:
-                print('NENHUM JOGADOR TEM MOVIMENTOS POSSÍVEIS! CONTABILIZANDO PONTOS!')
-                pontos_jogadores = {}
-                pontos_jogadores[1] = soma_pecas(jogo['jogadores'][1])
-                pontos_jogadores[2] = soma_pecas(jogo['jogadores'][2])
-                pontos_jogadores[3] = soma_pecas(jogo['jogadores'][n_jogadores-1])
-                pontos_jogadores[4] = soma_pecas(jogo['jogadores'][n_jogadores])
-                menor = min(pontos_jogadores.values)
-                ganhador = pontos_jogadores.keys(menor)
-            
-                break
-            
-            elif jogo['jogadores'][1] == [] or jogo['jogadores'][2] == [] or jogo['jogadores'][n_jogadores-1] == [] or jogo['jogadores'][n_jogadores] == []:
+            if (jogo['jogadores'][1] == []) or (jogo['jogadores'][2] == []) or (jogo['jogadores'][n_jogadores-1] == []) or (jogo['jogadores'][n_jogadores] == []):
                 for jogador in jogo['jogadores']:
                     for pecas in jogo['jogadores'][jogador]:
                         if pecas == []:
                             ganhador = jogador
+                            continuar = False
+                       
+            if ((posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][n_jogadores-1] != [] or jogo['jogadores'][n_jogadores] != [])) and n_jogadores != 4:
+                #COMPRANDO PEÇAS DO MONTE
+                peca = [9,9]
+                if len(jogo['monte'])>0:
+                    while peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
+                        if jogo['jogadores'][1] != []:  
+                            print('\033[1;32;40mJOGADOR 1: {}\033[m'.format(formata_pecas(jogo['jogadores'][1])))
+                            comprar_peca = input('Nenhuma peça possível, compre uma peça!(ENTER) ')
+                            jogo['jogadores'][1].append(jogo['monte'][0])
+                            peca = jogo['monte'][0]
+                            del(jogo['monte'][0])
+                        if jogo['jogadores'][1] == []:
+                            ganhador = 1
+                            continuar = False
+                            
+
+                        if peca[0] != jogo['mesa'][0][0] or peca[0] != jogo['mesa'][-1][-1] or peca[1] != jogo['mesa'][0][0] or peca[1] != jogo['mesa'][-1][-1]:
                             break
+                        else:
+                            print('A peça comprada não cabe na mesa! Compre outra')
+                if len(jogo['monte'])==0 and n_jogadores != 4:
+                    print('Sem peças no monte... Pulando a vez!')
+                    
+
+            if n_jogadores == 4 and ((posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][n_jogadores-1] != [] or jogo['jogadores'][n_jogadores] != [])):
+                print('Sem peças possíveis... Pulando a vez!')
+                      
+            
+            if posicoes_possiveis(jogo['mesa'],jogo['jogadores'][1]) == [] and posicoes_possiveis(jogo['mesa'],jogo['jogadores'][2]) == [] and posicoes_possiveis(jogo['mesa'],jogo['jogadores'][n_jogadores-1]) == [] and posicoes_possiveis(jogo['mesa'],jogo['jogadores'][n_jogadores]) == [] and jogo['jogadores'][1] != [] and jogo['jogadores'][2] != [] and jogo['jogadores'][n_jogadores-1] != [] and jogo['jogadores'][n_jogadores] != []:
+                print('NENHUM JOGADOR TEM MOVIMENTOS POSSÍVEIS! CONTABILIZANDO PONTOS!')
+                pontos_jogadores = {}
+                pontos_jogadores[1] = soma_pecas(jogo['jogadores'][1])
+                pontos_jogadores[2] = soma_pecas(jogo['jogadores'][2])
+                pontos_jogadores[n_jogadores-1] = soma_pecas(jogo['jogadores'][n_jogadores-1])
+                pontos_jogadores[n_jogadores] = soma_pecas(jogo['jogadores'][n_jogadores])
+                menor = min(pontos_jogadores.values())
+                for key, value in pontos_jogadores.items():
+                    if menor == value:
+                        ganhador = key
+                break
+                
+            
+            
         print('O JOGADOR {} GANHOU! FIM DE JOGO'.format(ganhador))
         print('OBRIGADO POR JOGAR!')
         print('')
         jogar = input('\033[1;33;40mGOSTARIA DE JOGAR DOMINÓ NOVAMENTE(S/N)? \033[m')
-
-
-
