@@ -98,38 +98,39 @@ def inicia_jogo(n_jogadores,pecas):
 
     #Printando Mesa e Jogador com formatação
     pecas_jogador = jog_mes_mon['jogadores'][1]
-    print('\033[1;32;40mJOGADOR 1:\033[m \033[0;32;40m{}\033[m'.format(pecas_jogador))
+    print('\033[1;32;40mJOGADOR 1:\033[m \033[0;32;40m{}\033[m'.format(formata_pecas(pecas_jogador)))
     print("")
     print('================================================================================')
-    print('\033[1;36;40mMESA:\033 \033[0;36;40m{}\033[m'.format(jog_mes_mon['mesa']))
+    
 
     return jog_mes_mon
 
 #Adicionando Peças
 def adiciona_na_mesa(peca,mesa):
-    aux = []
     if mesa == []:
-       mesa.append(peca)
+        mesa.append(peca)
     else:
-        final = mesa [-1][-1]
+        final = mesa [len(mesa)-1][1]
         comeco = mesa [0][0]
-        if comeco in peca:
+        peca_1 = peca[0]
+        peca_2 = peca[1]
+        if mesa == []:
+            mesa.append(peca)
+        elif comeco in peca:
             if comeco == peca[0]:
-                aux.append(peca[::-1])
-                mesa= aux + mesa
+                mesa.insert(0, [peca_2, peca_1])
             elif comeco == peca[-1]:
-                aux.append(peca)
-                mesa = aux + mesa
+                mesa.insert(0, peca)
         elif final in peca:
             if peca[0] == final:
                 mesa.append(peca)
             elif peca[-1] == final: 
-                mesa.append(peca[::-1])
+                mesa.append([peca_2, peca_1])
         elif peca[0] == peca[1] and comeco in peca:
             mesa.append(peca)
 
-        aux = []
-        return mesa
+    aux = []
+    return mesa
 
 #Soma peças
 def soma_pecas(lista):
