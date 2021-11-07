@@ -32,6 +32,7 @@ def bot(jogo, n_jogadores, mesa, pecas):
                 else:
                     print('JOGADA DO JOGADOR 2:')
                     print('Sem peças no monte... Pulando a vez!')
+                    a2 = 0
 
 ############################################################# 3 JOGADORES ##########################################################
     elif n_jogadores == 3:
@@ -58,6 +59,10 @@ def bot(jogo, n_jogadores, mesa, pecas):
                             print('A peça comprada não cabe na mesa! Compre outra')
                 else:
                     print('Sem peças no monte... Pulando a vez!')
+                    if jogador == 2:
+                        a2 = 0
+                    if jogador == 3:
+                        a3 = 0
                     
 ############################################################# 4 JOGADORES ##########################################################
     elif n_jogadores == 4:
@@ -70,11 +75,22 @@ def bot(jogo, n_jogadores, mesa, pecas):
                 print('JOGADA DO JOGADOR {}: '.format(jogador))
                 print('\033[1;36;40mMESA: {}\033[m'.format(formata_pecas(jogo['mesa'])))
                 print('')
+            
+            if pecas[jogador] == []:
+                ganhador = jogador
+                break
 
             if (posicoes_possiveis(jogo['mesa'],jogo['jogadores'][jogador]) == []) and (jogo['jogadores'][1] != [] or jogo['jogadores'][2] != [] or jogo['jogadores'][3] != [] or jogo['jogadores'][4] != []):
                     print('JOGADA DO JOGADOR {}: '.format(jogador))
                     print('Sem peças possíveis... Pulando a vez!')
                     print('')
+                    if jogador == 2:
+                        a2 = 0
+                    if jogador == 3:
+                        a3 = 0
+                    if jogador == 4:
+                        a4 = 0
+           
                     
 
 
